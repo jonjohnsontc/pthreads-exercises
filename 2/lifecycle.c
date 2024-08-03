@@ -9,6 +9,7 @@ int main(int argc, char *argv[]) {
   void *thread_result;
   int status;
 
+  // Thread initialized to ready state
   status = pthread_create(&thread_id, NULL, thread_routine, NULL);
   if (status != 0) {
     err_abort(status, "Create thread");
