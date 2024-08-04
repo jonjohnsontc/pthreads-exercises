@@ -1,6 +1,9 @@
 #include "../errors.h"
 #include <pthread.h>
 
+// increasing this should increase the chance that the
+// monitor thread is unable to read the counter variable
+// because the counter thread will still be using it
 #define SPIN 20000000
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
