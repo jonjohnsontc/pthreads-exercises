@@ -1,7 +1,5 @@
 #include "../errors.h"
 #include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <time.h>
 
 /*
@@ -53,7 +51,7 @@ void *alarm_thread(void *arg) {
       else
         sleep_time = alarm->time - now;
 #ifdef DEBUG
-      printf("[waiting: %ld(%ld)\"%s\"]\n", alarm->time, sleep_time,
+      printf("[waiting: %ld(%d)\"%s\"]\n", alarm->time, sleep_time,
              alarm->message);
 #endif
     }
@@ -65,7 +63,7 @@ void *alarm_thread(void *arg) {
       run if it has been readied by user input, without delaying
       message if there's no input.
     */
-    status = pthread_mutex_lock(&alarm_mutex);
+    status = pthread_mutex_unlock(&alarm_mutex);
     if (status != 0)
       err_abort(status, "Unlock mutex");
     if (sleep_time > 0)
@@ -107,7 +105,7 @@ int main(int argc, char *argv[]) {
       (%64[^\n]), consisting of up to 64 characters
       separated from the seconds by whitespace
     */
-    if (sscanf(line, "%d%64[^\n]", &alarm->seconds, alarm->message) < 2) {
+    if (sscanf(line, "%d %64[^\n]", &alarm->seconds, alarm->message) < 2) {
       fprintf(stderr, "Bad command\n");
       free(alarm);
     } else {
@@ -143,11 +141,11 @@ int main(int argc, char *argv[]) {
 #ifdef DEBUG
       printf("[list:");
       for (next = alarm_list; next != NULL; next = next->link)
-        printf("%ld(%d)[\"%s\"]", next->time, next->time - time(NULL),
+        printf("%ld(%ld)[\"%s\"]", next->time, next->time - time(NULL),
                next->message);
       printf("]\n");
 #endif
-      status = pthread_mutex_lock(&alarm_mutex);
+      status = pthread_mutex_unlock(&alarm_mutex);
       if (status != 0)
         err_abort(status, "Unlock mutex");
     }
