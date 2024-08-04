@@ -1,0 +1,20 @@
+#include "../errors.h"
+#include <pthread.h>
+#include <time.h>
+
+/*
+  The "alarm" structure now contains the time_t (time since the
+  epoch, in seconds) for each alarm, so that they can be sorted.
+  Storing the requested number of seconds would not be enough,
+  since the "alarm thread" cannot tell how long it has been on
+  the list.
+*/
+typedef struct alarm_tag {
+  struct alarm_tag *link;
+  int seconds;
+  time_t time; // seconds from epoch
+  char message[64];
+} alarm_t;
+
+pthread_mutex_t alarm_mutex = PTHREAD_MUTEX_INITIALIZER;
+alarm_t *alarm_list = NULL;
