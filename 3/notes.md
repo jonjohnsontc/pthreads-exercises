@@ -12,3 +12,5 @@ A visual of a mutex guarding some data. Whenever a threads line is below the bol
 ![Example mutex operation](./imgs/3-2_mutex_operation.png)
 
 We can statically and dynamically initialize mutexes. Static initialized mutexes are available through the `PTHREAD_MUTEX_INITIALIZER`. Dynamically allocated mutexes should be initialized through `pthread_mutex_init`, or or some other means, it just can't be aforementioned PTHREAD_MUTEX_INITIALIZER macro.
+
+It is difficult for anyone to guarantee atomicity in a program (i.e., where threads don't ever detect invariants that change), but leveraging synchronization through mutexes allows you to sidestep that issue somewhat. You just need to ensure that all threads are using the same mutex for a given data structure.
