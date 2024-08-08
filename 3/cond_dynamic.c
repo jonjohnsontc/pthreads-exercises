@@ -1,7 +1,5 @@
 #include "../errors.h"
 #include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 /*
   Define a structure, with a mutex and condition variable[]
