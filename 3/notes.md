@@ -18,3 +18,5 @@ It is difficult for anyone to guarantee atomicity in a program (i.e., where thre
 A condition variable is how threads can communicate about the status of a dataset and its corresponding mutex.
 
 ![Example condition variable operation](./imgs/3-4_cond_variable_operation.png)
+
+A conditional variable should never be copied, but of course can be shared by passing pointers
