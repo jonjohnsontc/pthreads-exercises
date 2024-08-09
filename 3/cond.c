@@ -1,9 +1,6 @@
 #include "../errors.h"
 #include <pthread.h>
-#include <sys/_types/_null.h>
-#include <sys/errno.h>
 #include <time.h>
-#include <unistd.h>
 
 typedef struct mystruct_tag {
   pthread_mutex_t mutex; // provides access to value
@@ -42,7 +39,7 @@ int main(int argc, char *argv[]) {
   struct timespec timeout;
 
   /*
-    If an argument is specified, interpet it as the number
+    If an argument is specified, interpret it as the number
     of seconds for wait_thread to sleep before signaling the
     condition variable. You can play with this to see the
     condition wait below time out or wake normally.
